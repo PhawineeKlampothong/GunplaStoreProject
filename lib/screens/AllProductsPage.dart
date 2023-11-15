@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store/widgets/BoxNews.dart';
 
 class AllProductsPage extends StatefulWidget {
   const AllProductsPage({super.key});
@@ -9,17 +10,79 @@ class AllProductsPage extends StatefulWidget {
 
 class _AllProductsPageState extends State<AllProductsPage> {
   @override
+
+  Future<void> _shoppingCartDialog(BuildContext context,String name,double price) {
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Shopping cart'),
+          icon: const Icon(Icons.shopping_cart_rounded),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('$name'),
+                  Text('\$$price'),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Dismiss'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Checkout'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  ButtonStyle enabledFilledButtonStyle(bool selected, ColorScheme colors) {
+    return IconButton.styleFrom(
+      foregroundColor: selected ? colors.onPrimary : colors.primary,
+      backgroundColor: selected ? colors.primary : colors.surfaceVariant,
+      disabledForegroundColor: colors.onSurface.withOpacity(0.38),
+      disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
+      hoverColor: selected
+          ? colors.onPrimary.withOpacity(0.08)
+          : colors.primary.withOpacity(0.08),
+      focusColor: selected
+          ? colors.onPrimary.withOpacity(0.12)
+          : colors.primary.withOpacity(0.12),
+      highlightColor: selected
+          ? colors.onPrimary.withOpacity(0.12)
+          : colors.primary.withOpacity(0.12),
+    );
+  }
+
   Widget build(BuildContext context) {
     final ButtonStyle style = TextButton.styleFrom(
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
     );
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue.shade900,
         toolbarHeight: 120,
         titleSpacing: 60,
         title: Text(
           "GunplaStore",
-          style: TextStyle(fontSize: 50, color: Colors.white),
+          style:
+              TextStyle(fontSize: 50, color: Colors.white, fontFamily: 'Jose1'),
         ),
         actions: <Widget>[
           TextButton(
@@ -29,29 +92,27 @@ class _AllProductsPageState extends State<AllProductsPage> {
             },
             child: const Text(
               'News',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 30, fontFamily: 'Jose1'),
             ),
           ),
+          SizedBox(width: 40),
           TextButton(
             style: style,
             onPressed: () {},
             child: const Text(
               'All Products',
               style: TextStyle(
-                shadows: [
-                  Shadow(
-                      color: Colors.white,
-                      offset: Offset(0, -5))
-                ],
-                color: Colors.transparent,
-                decoration:
-                TextDecoration.underline,
-                decorationColor: Colors.white,
-                decorationThickness: 4,
-                fontSize: 30,
-              ),
+                  shadows: [Shadow(color: Colors.white, offset: Offset(0, -5))],
+                  color: Colors.transparent,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.white,
+                  decorationThickness: 4,
+                  fontSize: 30,
+                  fontFamily: 'Jose1'),
             ),
           ),
+          SizedBox(width: 40),
           TextButton(
             style: style,
             onPressed: () {
@@ -59,9 +120,11 @@ class _AllProductsPageState extends State<AllProductsPage> {
             },
             child: const Text(
               'Promotion',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 30, fontFamily: 'Jose1'),
             ),
           ),
+          SizedBox(width: 40),
           TextButton(
             style: style,
             onPressed: () {
@@ -69,47 +132,95 @@ class _AllProductsPageState extends State<AllProductsPage> {
             },
             child: const Text(
               'New Arrivals',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 30, fontFamily: 'Jose1'),
             ),
           ),
           TextButton(
             onPressed: () {},
-            child: const Text('blank'),
+            child: const Text(''),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-
-        child: Container(
-          height: 500,
+      body: Container(
+        color: Colors.indigo.shade100,
+        child: Padding(
+          padding: EdgeInsetsDirectional.only(
+              start: 90, top: 60, end: 20, bottom: 60),
           child: ListView(
             // This next line does the trick.
             scrollDirection: Axis.horizontal,
             children: <Widget>[
               Container(
-                width: 500,
-                color: Colors.red,
+                width: 300,
+                child: BoxNews(
+                    path: "/sd",
+                    text: "SD",
+                    img: "assets/images/news/HSD.png",
+                    detail:
+                        '''           Super Deform (SD Gundam) Gundam SD จริงๆ แล้วโมเดล Gundam SD นั้นจัดเป็นพวกไม่มีเกรด และไม่มีอัตราส่วน เป็นโมเดล Gundam ที่หัวโต ตัวเล็ก แขนขาสั้น แต่น่ารัก มีการแยกสีน้อยทำให้ต้องทำสีหรือติดสติกเกอร์หลายส่วน มีจุดขยับน้อย และด้วยความที่ตัวเล็กจึงมีรายละเอียดน้อย จึงเหมาะสำหรับมือใหม่หรือเด็กๆ ที่เริ่มหัดเล่น '''),
+              ),
+              SizedBox(
+                width: 60,
               ),
               Container(
-                width: 160,
-                color: Colors.blue,
+                width: 300,
+                child: BoxNews(
+                  path: "/hg",
+                  text: "HG",
+                  img: "assets/images/news/HHG.png",
+                  detail:
+                      '''           High Grade (HG) จะผลิตในอัตราส่วน 1/144 ซึ่งมีขนาดเล็ก มีการแยกสีและจุดขยับต่างๆ มีรายระเอียดในระดับหนึ่ง อาจจะมีจุดที่ต้องทำสีเพิ่มหรือติดสติกเกอร์เพื่อให้สีสมจริงขึ้นมีความรายละเอียดสวยงามใกล้เคียงกับใน แอนนิเมชั่น ราคาไม่สูงมากแต่ในปัจจุบันก็มี HG 1/144 บางตัวที่มีราคาสูงจากราคามาตรฐานไปมาก''',
+                ),
+              ),
+              SizedBox(
+                width: 60,
               ),
               Container(
-                width: 160,
-                color: Colors.green,
+                width: 300,
+                child: BoxNews(
+                    path: "/rg",
+                    text: "RG",
+                    img: "assets/images/news/HRG.png",
+                    detail:
+                        '''           Real Grade (RG) เป็น Gunpla ที่มีขนาดเท่ากันกับ High Grade (HG) แต่มีจุดเด่นที่รายละเอียดในระดับสูงมากๆ ผลิตในอัตราส่วน 1/144 ที่มีขนาดเล็ก โดยคนส่วนใหญ่ให้ความเห็นว่ารายละเอียดมากว่า Master Grade (MG) เสียอีก ปัจจุบันมีให้เลือกสะสมหลายแบบมาก'''),
+              ),
+              SizedBox(
+                width: 60,
               ),
               Container(
-                width: 160,
-                color: Colors.yellow,
+                width: 300,
+                child: BoxNews(
+                    path: "/mg",
+                    text: "MG",
+                    img: "assets/images/news/HMG.png",
+                    detail:
+                        '''           Master Grade (MG) เป็น Gunpla ที่ผลิตในอัตราส่วน 1/100 มีการแยกสีมาดีมากๆ โดยเฉพาะรุ่นใหม่ๆ อาจจะไม่ต้องทำสีหรือติดสติกเกอร์ก็ได้สีตรงกับของจริง แทบไม่มีชิ้นส่วนประกบคู่ให้เห็นรอยต่อ มีจุดขยับที่ดีกว่า High Grade (HG) มาก บางตัวสามารถคุกเข่าหรือกอดอกได้เลยทีเดียว มีรายละเอียดสูงมักจะมีการออกแบบเพิ่ม Detail เข้าไปใหม่ โดยมีรายละเอียดลึกถึงในระดับโครงใน (Inner Frame) ของตัวหุ่น ราคาสูงในระดับหนึ่ง'''),
+              ),
+              SizedBox(
+                width: 60,
               ),
               Container(
-                width: 160,
-                color: Colors.orange,
+                width: 300,
+                child: BoxNews(
+                    path: "/pg",
+                    text: "PG",
+                    img: "assets/images/news/HPG.png",
+                    detail:
+                        '''           Perfect Grade (PG) เป็น Gunpla ที่ผลิตในอัตราส่วน 1/60 การแยกสี จุดขยับ เหนือกว่า Master Grade (MG) อยู่มากเช่นส่วนมือจะสามารถขยับนิ้วได้ทุกข้อเลย และมีส่วนโครงใน (Inner Frame) ที่มีรายละเอียด ความสวยงามและความซับซ้อนสูงอีกเช่นกัน มีระบบไฟตามจุดต่างๆ เช่นที่ดวงตาและหน้าอก โดย Perfect Grade (PG) นั้นจะมีแบบให้เลือกน้อยกว่าขนาดอื่นๆ เพราะจะผลิตเฉพาะตัวที่เด่นเท่านั้น จึงมีราคาที่สูงตามความละเอียดของชิ้นงานอยู่มาก'''),
               ),
             ],
           ),
         ),
-      ),);
+      ),
+      floatingActionButton: Container(
+        height: 100.0,
+        width: 100.0,
+        child: FittedBox(
+          child: FloatingActionButton(onPressed: () async => _shoppingCartDialog(context,"fd",20),
+            child: const Icon(Icons.shopping_cart_rounded),),
+        ),
+      ),
+    );
   }
 }

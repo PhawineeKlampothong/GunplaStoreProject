@@ -15,11 +15,13 @@ class _NewPageState extends State<NewPage> {
     );
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue.shade900,
         toolbarHeight: 120,
         titleSpacing: 60,
         title: Text(
           "GunplaStore",
-          style: TextStyle(fontSize: 50, color: Colors.white),
+          style: TextStyle(
+              fontSize: 50, color: Colors.white, fontFamily: 'Jose1'),
         ),
         actions: <Widget>[
           TextButton(
@@ -29,20 +31,23 @@ class _NewPageState extends State<NewPage> {
             },
             child: const Text(
               'News',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 30, fontFamily: 'Jose1'),
             ),
           ),
+          SizedBox(width: 40),
           TextButton(
             style: style,
-
             child: const Text(
               'All Products',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 30, fontFamily: 'Jose1'),
             ),
             onPressed: () {
               Navigator.popAndPushNamed(context, '/AllProductsPage');
             },
           ),
+          SizedBox(width: 40),
           TextButton(
             style: style,
             onPressed: () {
@@ -50,32 +55,33 @@ class _NewPageState extends State<NewPage> {
             },
             child: const Text(
               'Promotion',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 30, fontFamily: 'Jose1'),
             ),
           ),
+          SizedBox(width: 40),
           TextButton(
             style: style,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.popAndPushNamed(context, '/NewPage');
+            },
             child: const Text(
               'New Arrivals',
               style: TextStyle(
-                shadows: [
-                  Shadow(
-                      color: Colors.white,
-                      offset: Offset(0, -5))
-                ],
-                color: Colors.transparent,
-                decoration:
-                TextDecoration.underline,
-                decorationColor: Colors.white,
-                decorationThickness: 4,
-                fontSize: 30,
-              ),
+                  shadows: [
+                    Shadow(color: Colors.white, offset: Offset(0, -5))
+                  ],
+                  color: Colors.transparent,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.white,
+                  decorationThickness: 4,
+                  fontSize: 30,
+                  fontFamily: 'Jose1'),
             ),
           ),
           TextButton(
             onPressed: () {},
-            child: const Text('blank'),
+            child: const Text(''),
           ),
         ],
       ),

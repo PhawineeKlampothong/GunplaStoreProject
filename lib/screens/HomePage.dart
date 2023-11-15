@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () {},
-              child: const Text('blank'),
+              child: const Text(''),
             ),
           ],
         ),
