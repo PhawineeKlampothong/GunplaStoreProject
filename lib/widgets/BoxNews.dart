@@ -37,7 +37,7 @@ class BoxNews extends StatelessWidget {
 
                     child: Column(
                       children: [
-                        Text(text,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.cyanAccent),),
+                        Text(text,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.yellowAccent.shade700),),
                         SizedBox(height: 290,),
                         Text(detail,style: TextStyle(fontSize: 16,color: Colors.white),),
                       ],
@@ -53,10 +53,10 @@ class BoxNews extends StatelessWidget {
 
                             style: OutlinedButton.styleFrom(
                               minimumSize: Size.fromHeight(10),
-                              backgroundColor: Colors.yellowAccent.shade700,
+                              backgroundColor: Colors.red,
 
                             ),
-                            child: Text('เลือกซื้อ >>>',style: TextStyle(fontSize: 30,color: Colors.pinkAccent)),
+                            child: Text('เลือกซื้อ >>>',style: TextStyle(fontSize: 30,color: Colors.white,fontWeight: FontWeight.bold)),
                             onPressed: () {
                               Navigator.popAndPushNamed(context,path);
                             },
