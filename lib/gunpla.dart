@@ -1,6 +1,7 @@
 class gunpla{
   String name;
-  String price;
+  int price;
 
   gunpla(this.name,this.price);
 }
+

@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:store/widgets/BoxNews.dart';
+import 'package:store/gunpla.dart';
+
+class CartItem {
+  final String name;
+  final int price;
+  final int quantity;
+
+  CartItem({
+    required this.name,
+    required this.price,
+    required this.quantity,
+  });
+}
 
 class AllProductsPage extends StatefulWidget {
   const AllProductsPage({super.key});
@@ -10,8 +23,83 @@ class AllProductsPage extends StatefulWidget {
 
 class _AllProductsPageState extends State<AllProductsPage> {
   @override
+  List<CartItem> cartItems = [];
 
-  Future<void> _shoppingCartDialog(BuildContext context,String name,double price) {
+  // ฟังก์ชันเพิ่มรายการในตะกร้า
+  void _addToCart(String name, int price, int quantity) {
+    // ตรวจสอบว่ารายการนี้มีอยู่ในตะกร้าแล้วหรือไม่
+    int existingIndex = cartItems.indexWhere((item) => item.name == name);
+
+    if (existingIndex != -1) {
+      // หากมีอยู่แล้วให้เพิ่มจำนวน
+      setState(() {
+        cartItems[existingIndex] = CartItem(
+          name: name,
+          price: price,
+          quantity: cartItems[existingIndex].quantity + quantity,
+        );
+      });
+    } else {
+      // ถ้ายังไม่มีให้เพิ่มรายการใหม่
+      setState(() {
+        cartItems.add(CartItem(
+          name: name,
+          price: price,
+          quantity: quantity,
+        ));
+      });
+    }
+  }
+
+  void _showCart() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Shopping cart'),
+          content: Column(
+            children: [
+              const Divider(),
+              Column(
+                children: cartItems.map((item) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${item.quantity} x ${item.name}'),
+                    Text('\$${(item.price * item.quantity).toStringAsFixed(2)}'),
+                  ],
+                )).toList(),
+              ),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Total:'),
+                  Text('\$${cartItems.fold(0, (sum, item) => sum + item.price * item.quantity).toStringAsFixed(2)}'),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Dismiss'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Checkout'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Perform checkout or other actions
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _shoppingCartDialog(BuildContext context) {
 
     return showDialog<void>(
       context: context,
@@ -23,11 +111,21 @@ class _AllProductsPageState extends State<AllProductsPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Divider(),
+              Column(
+                children: cartItems.map((item) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${item.quantity} x ${item.name}'),
+                    Text('\$${(item.price * item.quantity).toStringAsFixed(2)}'),
+                  ],
+                )).toList(),
+              ),
+              const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('$name'),
-                  Text('\$$price'),
+                children: [
+                  Text('Total:'),
+                  Text('\$${cartItems.fold(0, (sum, item) => sum + item.price * item.quantity).toStringAsFixed(2)}'),
                 ],
               ),
             ],
@@ -143,6 +241,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
         ],
       ),
       body: Container(
+
         color: Colors.indigo.shade100,
         child: Padding(
           padding: EdgeInsetsDirectional.only(
@@ -153,13 +252,12 @@ class _AllProductsPageState extends State<AllProductsPage> {
             children: <Widget>[
               Container(
                 width: 300,
-                child: BoxNews(
-                    path: "/sd",
-                    text: "SD",
-                    img: "assets/images/news/HSD.png",
-                    detail:
-                        '''           Super Deform (SD Gundam) Gundam SD จริงๆ แล้วโมเดล Gundam SD นั้นจัดเป็นพวกไม่มีเกรด และไม่มีอัตราส่วน เป็นโมเดล Gundam ที่หัวโต ตัวเล็ก แขนขาสั้น แต่น่ารัก มีการแยกสีน้อยทำให้ต้องทำสีหรือติดสติกเกอร์หลายส่วน มีจุดขยับน้อย และด้วยความที่ตัวเล็กจึงมีรายละเอียดน้อย จึงเหมาะสำหรับมือใหม่หรือเด็กๆ ที่เริ่มหัดเล่น '''),
-              ),
+              child:  BoxNews(
+                  path: "/sd",
+                  text: "SD",
+                  img: "assets/images/news/HSD.png",
+                  detail:
+                  '''           Super Deform (SD Gundam) Gundam SD จริงๆ แล้วโมเดล Gundam SD นั้นจัดเป็นพวกไม่มีเกรด และไม่มีอัตราส่วน เป็นโมเดล Gundam ที่หัวโต ตัวเล็ก แขนขาสั้น แต่น่ารัก มีการแยกสีน้อยทำให้ต้องทำสีหรือติดสติกเกอร์หลายส่วน มีจุดขยับน้อย และด้วยความที่ตัวเล็กจึงมีรายละเอียดน้อย จึงเหมาะสำหรับมือใหม่หรือเด็กๆ ที่เริ่มหัดเล่น '''),),
               SizedBox(
                 width: 60,
               ),
@@ -212,12 +310,13 @@ class _AllProductsPageState extends State<AllProductsPage> {
             ],
           ),
         ),
+
       ),
       floatingActionButton: Container(
         height: 100.0,
         width: 100.0,
         child: FittedBox(
-          child: FloatingActionButton(onPressed: () async => _shoppingCartDialog(context,"fd",20),
+          child: FloatingActionButton(onPressed: () async => _shoppingCartDialog(context),
             child: const Icon(Icons.shopping_cart_rounded),),
         ),
       ),
