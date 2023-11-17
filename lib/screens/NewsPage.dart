@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Container(
           width: 2000,
-            color: Colors.indigo.shade100,
+            color: Colors.white,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(50.0),
@@ -122,11 +122,11 @@ HG Gundam Calibarn จาก THE WITCH FROM MERCURY
                           Container(
                             padding: const EdgeInsets.all(50.0),
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue.shade200,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade100,
+                                  color: Colors.blue.shade900,
                                   blurRadius: 4,
                                   offset: Offset(4, 8), // Shadow position
                                 ),
@@ -181,11 +181,11 @@ Gundam Metaverse เปิดให้บริการในช่วงเว
                           Container(
                             padding: const EdgeInsets.all(50.0),
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue.shade200,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade100,
+                                  color: Colors.blue.shade900,
                                   blurRadius: 4,
                                   offset: Offset(4, 8), // Shadow position
                                 ),
@@ -220,7 +220,7 @@ Bandai Namco Group ตั้งเป้าที่จะทำงานร่�
                       padding: const EdgeInsets.all(50.0),
                       decoration: BoxDecoration(
                         color: Colors.lightBlue.shade100,
-                        borderRadius: BorderRadius.circular(20),
+                        //borderRadius: BorderRadius.circular(20),
                       ),
                       height: 950,
                       width: 1100,
@@ -246,11 +246,11 @@ Suit Gundam SEED FREEDOM เริ่มจัดแสดงแล้วที�
                           Container(
                             padding: const EdgeInsets.all(50.0),
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue.shade200,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade100,
+                                  color: Colors.blue.shade900,
                                   blurRadius: 4,
                                   offset: Offset(4, 8), // Shadow position
                                 ),
@@ -280,7 +280,7 @@ Suit Gundam SEED FREEDOM เริ่มจัดแสดงแล้วที�
                       padding: const EdgeInsets.all(50.0),
                       decoration: BoxDecoration(
                         color: Colors.lightBlue.shade100,
-                        borderRadius: BorderRadius.circular(20),
+                        //borderRadius: BorderRadius.circular(20),
                       ),
                       height: 1300,
                       width: 1100,
@@ -306,11 +306,11 @@ Gundam Build World เริ่มต้นที่ร้าน THE GUNDAM ต�
                           Container(
                             padding: const EdgeInsets.all(50.0),
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue.shade200,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade100,
+                                  color: Colors.blue.shade900,
                                   blurRadius: 4,
                                   offset: Offset(4, 8), // Shadow position
                                 ),
@@ -343,7 +343,7 @@ Gundam Build World เริ่มต้นที่ร้าน THE GUNDAM ต�
                       padding: const EdgeInsets.all(50.0),
                       decoration: BoxDecoration(
                         color: Colors.lightBlue.shade100,
-                        borderRadius: BorderRadius.circular(20),
+                        //borderRadius: BorderRadius.circular(20),
                       ),
                       height: 1250,
                       width: 1100,
@@ -370,11 +370,11 @@ Real Type Color Ver. MG Freedom Gundam Ver.2.0
                           Container(
                             padding: const EdgeInsets.all(50.0),
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue.shade200,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade100,
+                                  color: Colors.blue.shade900,
                                   blurRadius: 4,
                                   offset: Offset(4, 8), // Shadow position
                                 ),

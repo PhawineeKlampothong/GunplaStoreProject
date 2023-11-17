@@ -10,19 +10,20 @@ class hg extends StatefulWidget {
 
 class _hgState extends State<hg> {
   List<gunpla> pla = [
-    gunpla("HG GUNDAM AERIAL", "780.00 บาท"),
-    gunpla("SDEX UNICORN GUNDAM (DESTROY MODE)", "230.00 บาท"),
-    gunpla("SDEX NU GUNDAM", "240.00 บาท"),
-    gunpla("SDEX SAZABI", "240.00 บาท"),
-    gunpla("SDEX UNICORN GUNDAM 02 BANSHEE NORN", "240.00 บาท"),
-    gunpla("SD BB372 GUNDAM AGE-3", "450.00 บาท"),
-    gunpla("SD ZHUGE LIANG FREEDOM GUNDAM", "320.00 บาท"),
-    gunpla("SD SUN SHANGXIANG STRIKE ROUGE", "240.00 บาท"),
-    gunpla("SD SERGEANT VERDE BUSTER GUNDAM DX SET", "800.00 บาท"),
-    gunpla("SD QIONGQI STRIKE FREEDOM GUNDAM", "320.00 บาท"),
-    gunpla("SD SHINING GRASPER DRAGON", "280.00 บาท"),
-    gunpla("SD ZHAO YUN 00 GUNDAM COMMAND PACKAGE", "400.00 บาท"),
+    gunpla("HG GUNDAM AERIAL", 600),
+    gunpla("HG GUNDAM PHARACT", 720),
+    gunpla("HG DARILBALDE", 650),
+    gunpla("HG MICHAELIS", 550),
+    gunpla("HG UNICORN GUNDAM BANSHEE (DESTROY MODE)", 610),
+    gunpla("HG SINANJU (TITANIUM FINISH)", 1770),
+    gunpla("HG UNICORN GUNDAM DESTROY MODE (TITANIUM FINISH)", 1430),
+    gunpla("HG MSN-06S SINANJU", 880),
+    gunpla("HG GUNDAM CALIBARN", 850),
+    gunpla("HG HEINDEREE STURM", 550),
+    gunpla("HG GUNDAM AERIAL REBUILD", 770),
+    gunpla("HG GUNDAM LFRITH UR", 640),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +34,11 @@ class _hgState extends State<hg> {
         leading: BackButton(onPressed: () {
           Navigator.popAndPushNamed(context, '/AllProductsPage');
         }),
-        title: Text("High Grade (HG)"),
+        title: Text(
+          "High Grade (HG)",
+          style:
+              TextStyle(fontFamily: 'Jose1', fontSize: 30, color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 50),
@@ -85,7 +90,7 @@ class PlantItem extends StatefulWidget {
 
   final String name;
   final String image;
-  final String price;
+  final int price;
 
   @override
   State<PlantItem> createState() => _PlantItemState();
@@ -127,11 +132,11 @@ class _PlantItemState extends State<PlantItem> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  widget.price,
+                  'ราคา '+widget.price.toString() + ' บาท',
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
-                      .copyWith(fontWeight: FontWeight.bold),
+                      .copyWith(fontWeight: FontWeight.bold, color: Colors.red),
                 ),
               ],
             ),
@@ -151,26 +156,242 @@ class PlantDetailsPage extends StatefulWidget {
 
   final String name;
   final String image;
-  final String price;
+  final int price;
 
   @override
   State<PlantDetailsPage> createState() => _PlantDetailsPageState();
 }
 
+class CartItem {
+  final String name;
+  final int price;
+  int quantity;
+
+  CartItem({
+    required this.name,
+    required this.price,
+    required this.quantity,
+  });
+}
+
 class _PlantDetailsPageState extends State<PlantDetailsPage> {
+  List<CartItem> cartItems = [];
+
+  // ฟังก์ชันเพิ่มรายการในตะกร้า
+  void _addToCart(String name, int price, int quantity) {
+    // ตรวจสอบว่ารายการนี้มีอยู่ในตะกร้าแล้วหรือไม่
+    int existingIndex = cartItems.indexWhere((item) => item.name == name);
+
+    if (existingIndex != -1) {
+      // หากมีอยู่แล้วให้เพิ่มจำนวน
+      setState(() {
+        cartItems[existingIndex] = CartItem(
+          name: name,
+          price: price,
+          quantity: cartItems[existingIndex].quantity = quantity,
+        );
+      });
+    } else {
+      // ถ้ายังไม่มีให้เพิ่มรายการใหม่
+      setState(() {
+        cartItems.add(CartItem(
+          name: name,
+          price: price,
+          quantity: quantity,
+        ));
+      });
+    }
+  }
+
+  void _removefromCart(String name, int price, int quantity) {
+    // ตรวจสอบว่ารายการนี้มีอยู่ในตะกร้าแล้วหรือไม่
+    int existingIndex = cartItems.indexWhere((item) => item.name == name);
+
+    if (existingIndex != -1) {
+      // หากมีอยู่แล้วให้เพิ่มจำนวน
+      setState(() {
+        cartItems[existingIndex] = CartItem(
+          name: name,
+          price: price,
+          quantity: cartItems[existingIndex].quantity = quantity,
+        );
+      });
+    } else {
+      // ถ้ายังไม่มีให้เพิ่มรายการใหม่
+      setState(() {
+        cartItems.add(CartItem(
+          name: name,
+          price: price,
+          quantity: quantity,
+        ));
+      });
+    }
+  }
+
+  void _pay() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('ข้อมูลการชำระเงิน'),
+          icon: const Icon(Icons.money_off_csred_sharp),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Divider(),
+              Column(
+                children: cartItems
+                    .map((item) => Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('รายการสินค้า'),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text('${item.name}'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('คำสั่งซื้อ ( ${item.quantity} ชิ้น )'),
+                        Text(
+                          '\$${(item.price * item.quantity).toStringAsFixed(2)}',
+                        ),
+                      ],
+                    )
+                  ],
+                ))
+                    .toList(),
+              ),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('ยอดชำระเงินทั้งหมด :'),
+                  Text(
+                      '\$${cartItems.fold(0, (sum, item) => sum + item.price * item.quantity).toStringAsFixed(2)}'),
+                ],
+              ),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('ชำระเงินโดย :'),
+                  Text('VISA'),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('สั่งสินค้า'),
+              onPressed: _checkout,
+            ),
+            TextButton(
+              child: const Text('ยกเลิก'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _checkout() {
+    String enteredText = "ชำระเงินเสร็จสิ้น";
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("ยืนยันการชำระเงิน",style: TextStyle(color: Colors.green.shade800),),
+          content: Text("คุณ : $enteredText"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, '/hg');
+              },
+              child: Text("ตกลง"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showCart() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Shopping cart'),
+          icon: const Icon(Icons.shopping_cart_rounded),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Divider(),
+              Column(
+                children: cartItems
+                    .map((item) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${item.quantity} x ${item.name}'),
+                    Text(
+                        '\$${(item.price * item.quantity).toStringAsFixed(2)}'),
+                  ],
+                ))
+                    .toList(),
+              ),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('ชำระเงิน :'),
+                  Text(
+                      '\$${cartItems.fold(0, (sum, item) => sum + item.price * item.quantity).toStringAsFixed(2)}'),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('ซื้อสินค้า'),
+              onPressed: _pay,
+            ),
+            TextButton(
+              child: const Text('ยกเลิก'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   int _amonut = 0;
 
-
-  void _pluss() {
+  void _pluss(String name, int price) {
     setState(() {
       _amonut++;
     });
+    _addToCart(name, price, _amonut);
   }
 
-  void _minus() {
-    setState(() {
-      _amonut--;
-    });
+  void _minus(String name, int price) {
+    if (_amonut == 0) {
+    } else {
+      setState(() {
+        _amonut--;
+      });
+    }
+    _removefromCart(name, price, _amonut);
   }
 
   @override
@@ -181,7 +402,9 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar.medium(backgroundColor: Colors.red),
+          SliverAppBar.medium(
+            backgroundColor: Colors.blue.shade900,
+          ),
           SliverFillRemaining(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -196,9 +419,7 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
                   ),
                 ),
                 MaterialBanner(
-
                   content: Padding(
-
                     padding: const EdgeInsets.all(0.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,24 +430,40 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
                               fontWeight: FontWeight.bold, fontSize: 30),
                         ),
                         Text(
-                          widget.price,
+                          'ราคา '+widget.price.toString() + ' บาท',
                           style: textTheme.subtitle1!.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 30),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.red),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-
-                            TextButton(onPressed: _minus, child: Text("-",style: TextStyle(fontSize: 30))),
-                            SizedBox(width: 30,),
-                            Text('$_amonut',style: TextStyle(fontSize: 30),),
-                            SizedBox(width: 30,),
-                            TextButton(onPressed: _pluss, child: Text("+",style: TextStyle(fontSize: 30))),
+                            TextButton(
+                                onPressed: () {
+                                  _minus(widget.name, widget.price);
+                                },
+                                child:
+                                Text("-", style: TextStyle(fontSize: 30))),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Text(
+                              '$_amonut',
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  _pluss(widget.name, widget.price);
+                                },
+                                child:
+                                Text("+", style: TextStyle(fontSize: 30))),
                           ],
                         ),
-
                       ],
-
                     ),
                   ),
                   actions: [
@@ -236,7 +473,6 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
               ],
             ),
           ),
-
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -246,10 +482,10 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: _showCart,
                 icon: const Icon(Icons.attach_money_sharp),
                 label: const Text(
-                  "ซื้อเลย",
+                  "หยิบลงตะกร้า",
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -272,12 +508,21 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 TextButton(
-                                  onPressed: () {},
-                                  child: const Text('ยืนยัน',style: TextStyle(fontSize: 30),),
+                                  onPressed: _pay,
+                                  child: const Text(
+                                    'ยืนยัน',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
-                                  child: const Text('ยกเลิก',style: TextStyle(fontSize: 30,color: Colors.red),),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text(
+                                    'ยกเลิก',
+                                    style: TextStyle(
+                                        fontSize: 30, color: Colors.red),
+                                  ),
                                 ),
                               ],
                             ),
@@ -287,7 +532,7 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
                     );
                   },
                   child: Text(
-                    "หยิบลงตะกร้า",
+                    "ซื้อเลย",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -299,13 +544,3 @@ class _PlantDetailsPageState extends State<PlantDetailsPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

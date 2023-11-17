@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:store/screens/HomePage.dart';
+import 'package:store/screens/NewsPage.dart';
 import 'package:store/screens/AllProductsPage.dart';
 import 'package:store/screens/PromotionPage.dart';
 import 'package:store/screens/NewPage.dart';

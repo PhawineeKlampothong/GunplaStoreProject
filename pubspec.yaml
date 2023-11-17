@@ -67,6 +67,11 @@ flutter:
     - assets/images/news/
     - assets/images/sdshop/
     - assets/images/hgshop/
+    - assets/images/rgshop/
+    - assets/images/mgshop/
+    - assets/images/pgshop/
+    - assets/images/Prshop/
+    - assets/images/NewArrivals/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -94,20 +99,24 @@ flutter:
   fonts:
     - family: Jose1
       fonts:
-        - asset: assets/fonts/JosefinSans-Bold.ttf
-        - asset: assets/fonts/JosefinSans-BoldItalic.ttf
-        - asset: assets/fonts/JosefinSans-ExtraLight.ttf
-        - asset: assets/fonts/JosefinSans-ExtraLightItalic.ttf
-        - asset: assets/fonts/JosefinSans-Italic.ttf
-        - asset: assets/fonts/JosefinSans-Light.ttf
-        - asset: assets/fonts/JosefinSans-LightItalic.ttf
-        - asset: assets/fonts/JosefinSans-Medium.ttf
-        - asset: assets/fonts/JosefinSans-MediumItalic.ttf
-        - asset: assets/fonts/JosefinSans-Regular.ttf
-        - asset: assets/fonts/JosefinSans-SemiBold.ttf
-        - asset: assets/fonts/JosefinSans-SemiBoldItalic.ttf
-        - asset: assets/fonts/JosefinSans-Thin.ttf
-        - asset: assets/fonts/JosefinSans-ThinItalic.ttf
+        - asset: assets/fonts/Tomorrow-Black.ttf
+        - asset: assets/fonts/Tomorrow-BlackItalic.ttf
+        - asset: assets/fonts/Tomorrow-Bold.ttf
+        - asset: assets/fonts/Tomorrow-BoldItalic.ttf
+        - asset: assets/fonts/Tomorrow-ExtraBold.ttf
+        - asset: assets/fonts/Tomorrow-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Tomorrow-ExtraLight.ttf
+        - asset: assets/fonts/Tomorrow-ExtraLightItalic.ttf
+        - asset: assets/fonts/Tomorrow-Italic.ttf
+        - asset: assets/fonts/Tomorrow-Light.ttf
+        - asset: assets/fonts/Tomorrow-LightItalic.ttf
+        - asset: assets/fonts/Tomorrow-Medium.ttf
+        - asset: assets/fonts/Tomorrow-MediumItalic.ttf
+        - asset: assets/fonts/Tomorrow-Regular.ttf
+        - asset: assets/fonts/Tomorrow-SemiBold.ttf
+        - asset: assets/fonts/Tomorrow-SemiBoldItalic.ttf
+        - asset: assets/fonts/Tomorrow-Thin.ttf
+        - asset: assets/fonts/Tomorrow-ThinItalic.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

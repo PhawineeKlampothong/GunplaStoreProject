@@ -37,28 +37,30 @@ class BoxNews extends StatelessWidget {
 
                     child: Column(
                       children: [
-                        Text(text,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-                        SizedBox(height: 300,),
-                        Text(detail),
+                        Text(text,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.cyanAccent),),
+                        SizedBox(height: 290,),
+                        Text(detail,style: TextStyle(fontSize: 16,color: Colors.white),),
                       ],
                     ),
                   ),
 
                   Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.only(bottom: 50),
+                        padding: EdgeInsetsDirectional.only(bottom: 20),
                         child: Align(
-
                           alignment: Alignment.bottomCenter,
                           child: OutlinedButton(
+
                             style: OutlinedButton.styleFrom(
-                              minimumSize: Size.fromHeight(60),
+                              minimumSize: Size.fromHeight(10),
+                              backgroundColor: Colors.yellowAccent.shade700,
+
                             ),
-                            child: Text('All >>>',style: TextStyle(fontSize: 30),),
+                            child: Text('เลือกซื้อ >>>',style: TextStyle(fontSize: 30,color: Colors.pinkAccent)),
                             onPressed: () {
                               Navigator.popAndPushNamed(context,path);
                             },
-                          )
+                          ),
                         ),
                       ),
                   ),
@@ -72,7 +74,7 @@ class BoxNews extends StatelessWidget {
         ),
         color: Colors.transparent,
       ),
-      color: Colors.lightBlue.shade100,
+      color: Colors.blue.shade900,
     );
   }
 }

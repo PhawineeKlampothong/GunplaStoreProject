@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:store/widgets/BoxNews.dart';
+import 'package:store/gunpla.dart';
+
+class CartItem {
+  final String name;
+  final int price;
+  final int quantity;
+
+  CartItem({
+    required this.name,
+    required this.price,
+    required this.quantity,
+  });
+}
 
 class AllProductsPage extends StatefulWidget {
   const AllProductsPage({super.key});
@@ -10,24 +23,62 @@ class AllProductsPage extends StatefulWidget {
 
 class _AllProductsPageState extends State<AllProductsPage> {
   @override
+  List<CartItem> cartItems = [];
 
-  Future<void> _shoppingCartDialog(BuildContext context,String name,double price) {
+  // ฟังก์ชันเพิ่มรายการในตะกร้า
+  void _addToCart(String name, int price, int quantity) {
+    // ตรวจสอบว่ารายการนี้มีอยู่ในตะกร้าแล้วหรือไม่
+    int existingIndex = cartItems.indexWhere((item) => item.name == name);
 
-    return showDialog<void>(
+    if (existingIndex != -1) {
+      // หากมีอยู่แล้วให้เพิ่มจำนวน
+      setState(() {
+        cartItems[existingIndex] = CartItem(
+          name: name,
+          price: price,
+          quantity: cartItems[existingIndex].quantity + quantity,
+        );
+      });
+    } else {
+      // ถ้ายังไม่มีให้เพิ่มรายการใหม่
+      setState(() {
+        cartItems.add(CartItem(
+          name: name,
+          price: price,
+          quantity: quantity,
+        ));
+      });
+    }
+  }
+
+  void _showCart() {
+    showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Shopping cart'),
-          icon: const Icon(Icons.shopping_cart_rounded),
           content: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
+              const Divider(),
+              Column(
+                children: cartItems
+                    .map((item) => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('${item.quantity} x ${item.name}'),
+                            Text(
+                                '\$${(item.price * item.quantity).toStringAsFixed(2)}'),
+                          ],
+                        ))
+                    .toList(),
+              ),
               const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('$name'),
-                  Text('\$$price'),
+                children: [
+                  Text('Total:'),
+                  Text(
+                      '\$${cartItems.fold(0, (sum, item) => sum + item.price * item.quantity).toStringAsFixed(2)}'),
                 ],
               ),
             ],
@@ -43,6 +94,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
               child: const Text('Checkout'),
               onPressed: () {
                 Navigator.of(context).pop();
+                // Perform checkout or other actions
               },
             ),
           ],
@@ -143,7 +195,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
         ],
       ),
       body: Container(
-        color: Colors.indigo.shade100,
+        color: Colors.white,
         child: Padding(
           padding: EdgeInsetsDirectional.only(
               start: 90, top: 60, end: 20, bottom: 60),
@@ -211,14 +263,6 @@ class _AllProductsPageState extends State<AllProductsPage> {
               ),
             ],
           ),
-        ),
-      ),
-      floatingActionButton: Container(
-        height: 100.0,
-        width: 100.0,
-        child: FittedBox(
-          child: FloatingActionButton(onPressed: () async => _shoppingCartDialog(context,"fd",20),
-            child: const Icon(Icons.shopping_cart_rounded),),
         ),
       ),
     );
